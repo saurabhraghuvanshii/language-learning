@@ -1,22 +1,18 @@
-const apiEndpoint = 'https://api.github.com/repos/will-lp1/saru/issues';
 
-const pollingInterval = 5000;
-const maxPollingDuration = 300000;
-
-async function pollApi(apiEndpoint, pollingInterval, maxPollingDuration) {
+async function pollApi( ) {
     const startTime = Date.now();
 
     const makeRequest = async () => {
         try {
-            const response = await fetch(apiEndpoint);
+            const response = await fetch('https://api.github.com/repos/will-lp1/saru/issues');
             const data = await response.json();
 
            console.log('Fetched issues;', data.map(issue => issue.title));
 
             const elapsedTime = Date.now() - startTime;
 
-            if (elapsedTime < maxPollingDuration){
-                setTimeout(makeRequest, pollingInterval);
+            if (elapsedTime < 300000){
+                setTimeout(makeRequest, 5000);
             } else {
                 console.log('Maximum polling duraion reached. Stopping polling')
             }
@@ -24,8 +20,8 @@ async function pollApi(apiEndpoint, pollingInterval, maxPollingDuration) {
             console.error('Error making Api request:', e);
             const elapsedTime = Date.now() - startTime;
 
-            if (elapsedTime <maxPollingDuration) {
-                setTimeout(makeRequest, pollingInterval);
+            if (elapsedTime < 300000) {
+                setTimeout(makeRequest, 5000);
             } else {
                 console.log("Max polling duaratin reached. stoppung polling")
             }
@@ -34,4 +30,4 @@ async function pollApi(apiEndpoint, pollingInterval, maxPollingDuration) {
     makeRequest();
 }
 
-pollApi(apiEndpoint, pollingInterval, maxPollingDuration);
+pollApi();
