@@ -1,25 +1,26 @@
 package main
 
 import (
+	
 	"fmt"
-	"time"
+	//"time"
 )
 
-func main () {
+// func main () {
 
-   // no goroutines
-  // expensiveOp("first")
-   // expensiveOp("second")
+//    // no goroutines
+//   // expensiveOp("first")
+//    // expensiveOp("second")
 
-   // with Goroutines
+//    // with Goroutines
 
-   go expensiveOp("first")
-   go expensiveOp("second")
+//    go expensiveOp("first")
+//    go expensiveOp("second")
 
-   time.Sleep(time.Second * 2)
+//    time.Sleep(time.Second * 2)
 
-   fmt.Println("Done")
-}
+//    fmt.Println("Done")
+// }
 
 // No goroutines
 
@@ -29,3 +30,40 @@ func expensiveOp(str string) {
 	}
 }
 
+
+
+
+// Channel 
+
+// func main() {
+//     c := make(chan int)
+
+// 	go func() {
+// 		var sum = 0
+// 		for i:= range 100 {
+// 			sum += i
+// 		}
+// 		c <- sum
+// 	}()
+
+// 	x := <-c
+
+// 	fmt.Println(x)
+// }
+
+
+func main () {
+	var c = make(chan bool)
+
+	go func ()  {
+		sum := 0
+		for i := range 100 {
+			sum +=i
+		}
+        fmt.Println(sum)
+		c <- true
+	}()
+
+	fmt.Println("main function ended")
+	<-c 
+}
