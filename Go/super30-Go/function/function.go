@@ -45,6 +45,9 @@ func main () {
 
 	fmt.Println(double(3))
 	fmt.Println(tripple(4))
+
+	divide := divider(2,3)
+	fmt.Println(divide(4,5))
 }
 
 func sum ( a int  , b int ) int {
@@ -96,5 +99,11 @@ func calculator(a int, b int, fn func(int , int) int) int {
 func multiplier(fact int) func (int) int {
 	return  func(a int) int {
 		return a * fact
+	}
+}
+
+func divider ( a, b float32) func ( float32, float32) float32 {
+	return func(f , h float32) float32 {
+		return  a + b / f + h
 	}
 }
