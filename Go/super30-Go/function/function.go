@@ -37,7 +37,8 @@ func main () {
 
 	ans := calculator(1,3, sum1)
 	fmt.Println(ans)
-
+	ans1 := calculator(2,4, sub1)
+    fmt.Println(ans1)
 
 	double := multiplier(2)
 	tripple := multiplier(3)
@@ -82,7 +83,7 @@ func sum1( a, b int) int {
 	return a + b
 }
 
-func sum2(a, b int ) int {
+func sub1(a, b int ) int {
 	return a - b
 }
 
