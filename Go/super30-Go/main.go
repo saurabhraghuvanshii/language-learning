@@ -68,17 +68,65 @@ import (
 
 // map
 
-func main () {
-	m := make(map[string]int)
+// func main () {
+// 	m := make(map[string]int)
 
-    m["saurabh"] = 20
-	m["shivam"] = 21
+//     m["saurabh"] = 20
+// 	m["shivam"] = 21
 
-	fmt.Println(m)  // Output map[saurabh:20]
+// 	fmt.Println(m)  // Output map[saurabh:20]
 
-	for key, val := range m {
-		fmt.Println(key, val) // Output saurabh 20
-	}
+// 	for key, val := range m {
+// 		fmt.Println(key, val) // Output saurabh 20
+// 	}
 
 	
+// }
+
+
+// NExt Permutation
+
+func nextPer(nums []int) {
+	idx := -1
+	n := len(nums)
+
+	for i := n-2; i>=0; i--{
+		if nums[i] < nums[i+1] {
+			idx = i
+			break
+		}
+	}
+
+	if idx == -1 {
+		reverse(nums, 0, n-1)
+		return
+	}
+
+	for i := n-1; i > idx; i-- {
+		if nums[i] > nums[idx] {
+			nums[i], nums[idx]  = nums[idx], nums[i]
+			break
+		}
+	}
+
+	reverse(nums, idx+1, n-1)
+	
+}
+
+
+func reverse(nums []int, l, r int){
+	for l < r {
+		nums[l], nums[r] = nums[r], nums[l]
+		l++
+		r--
+	}
+}
+
+func main () {
+	nums := []int{2,1,5,4,3,0,0,0}
+	nums1 := []int{1,2,3,4,5}
+	nextPer(nums)
+	nextPer(nums1)
+	fmt.Println(nums)
+	fmt.Println(nums1)
 }
