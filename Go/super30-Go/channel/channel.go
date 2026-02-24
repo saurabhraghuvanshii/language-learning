@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-//  Add sender receiver handske
+// Add sender receiver handske
 // func main() {
 
 // 	ch := make(chan int)
@@ -44,7 +44,7 @@ func dummy (c chan int) {
 }
 
 func main() {
-	ch := make(chan int)
+	ch := make(chan int, 1)
 	go dummy(ch)
 	fmt.Println("waiting baby")
 	ch <- 45
