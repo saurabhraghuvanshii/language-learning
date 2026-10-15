@@ -75,11 +75,52 @@
 // }
 
 
-for (var i = 0; i < 3; i++) {
-    setTimeout(() => console.log(i), 1);
-}
+// for (var i = 0; i < 3; i++) {
+//     setTimeout(() => console.log(i), 1);
+// }
 
-for (let i = 0; i < 3; i++) {
-    setTimeout(() => console.log(i), 1);
-}
+// for (let i = 0; i < 3; i++) {
+//     setTimeout(() => console.log(i), 1);
+// }
 
+
+// let greeting;
+// greeting = {};
+// console.log(greeting);
+
+// function bark() {
+//     console.log('Woof!');
+// }
+  
+// bark.animal = 'dog';
+
+
+// function person (firstName, lastName) {
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+// }
+
+// const member = new person("saurabh", "singh");
+
+// person.prototype.getFullName = function() {
+//     return `${this.firstName} ${this.lastName}`
+// };
+
+
+// console.log(member.getFullName());
+
+// function Person(firstName, lastName) {
+//     this.firstName = firstName;
+//     this.lastName = lastName;
+//   }
+  
+//   const lydia = new Person('Lydia', 'Hallie');
+//   const sarah = Person('Sarah', 'Smith');
+  
+//   console.log(lydia);
+//   console.log(sarah);
+
+let number = 0;
+console.log(number++);
+console.log(++number);
+console.log(number);
