@@ -112,6 +112,8 @@ func zeroValues() {
 }
 
 func zeroTask() {
+	var t Task
+	fmt.Println("zero task struct", t.Duration);
 	fmt.Println("zerost task struct" , Task{Duration: 0})
 }
 // declarations shows var versus :=.
