@@ -43,7 +43,7 @@ import (
 
 // PITFALL (shown as a comment because it would not compile):
 //
-//	import "strings"   // imported but never used -> "imported and not used" error
+import "strings"   // imported but never used -> "imported and not used" error
 //
 //	func main() { x := 5 }   // x declared and not used -> compile error
 //
@@ -55,10 +55,13 @@ const greeting = "Hello, World!"
 // helloWorld prints the classic first program output.
 func helloWorld() {
 	// Println writes its arguments followed by a newline to standard output.
-	fmt.Println("[hello]", greeting)
+	fmt.Println("[hello]", strings.ToUpper(greeting));
 }
 
-// showArgs prints the program's own command line, as the OS passed it.
+func greet(name string)  {
+	fmt.Println("Hello", name)
+}// showArgs prints the program's own command line, as the OS passed it.
+
 func showArgs() {
 	// os.Args is a []string; element 0 is the path of the running program.
 	fmt.Println("[args] program path (os.Args[0]):", os.Args[0] != "")
@@ -88,4 +91,5 @@ func main() {
 	helloWorld()    // print Hello World
 	showArgs()      // print our own os.Args
 	showToolchain() // print compiler info
+	greet("saurabh")
 }
