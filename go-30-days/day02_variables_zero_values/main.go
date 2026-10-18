@@ -28,16 +28,24 @@ EXERCISES:
 
 package main
 
-import "fmt" // fmt for printing
+import (
+	"fmt" // fmt for printing
+	"time"
+)
 
 // Status is our own named type built on int, used as an enum.
 type Status int
+
+type Task struct {
+	Duration time.Duration
+}
 
 // iota starts at 0 in each const block and increases by 1 per line.
 const (
 	Pending Status = iota // 0: the zero value, so "unset" means Pending
 	Paid                  // 1
 	Shipped               // 2
+	Refunded              // 3
 )
 
 // String lets fmt print the name instead of the number (Stringer interface).
@@ -50,7 +58,10 @@ func (s Status) String() string {
 		return "Paid"
 	case Shipped:
 		return "Shipped"
+	case Refunded:
+		return "Refunded"
 	}
+
 	// Anything else is a bug; make it visible.
 	return "Unknown"
 }
@@ -65,6 +76,14 @@ const (
 // kmToMilesConv converts kilometres to miles.
 func kmToMilesConv(km float64) float64 {
 	return km * kmToMiles // float * untyped const works without a cast
+}
+
+func MilesToKilometresConv(miles float64) float64 {
+	return miles / kmToMiles
+}
+
+func verifyRoundTrip(km float64, miles float64) bool {
+	return km == MilesToKilometresConv(kmToMilesConv(km)) && miles == kmToMilesConv(MilesToKilometresConv(miles));
 }
 
 // celsiusToFahrenheit converts degrees Celsius to Fahrenheit.
@@ -82,14 +101,19 @@ func zeroValues() {
 	var sl []string      // slice -> nil, but len() and append still work
 	var m map[string]int // map -> nil; reading is fine, writing panics
 	var st Status        // our enum -> 0 == Pending
+	var d time.Duration
 	// %q quotes strings so empty is visible; %v prints any value.
 	fmt.Printf("[zero] int=%d float=%v bool=%v string=%q ptr=%v\n", i, f, b, s, p)
 	fmt.Printf("[zero] slice=%v (nil? %t, len %d) map=%v (nil? %t) status=%v\n",
 		sl, sl == nil, len(sl), m, m == nil, st)
 	// Reading a missing key from a nil map is safe and yields the zero value.
 	fmt.Println("[zero] nil map read:", m["missing"])
+	fmt.Println("[zero] duration:", d)
 }
 
+func zeroTask() {
+	fmt.Println("zerost task struct" , Task{Duration: 0})
+}
 // declarations shows var versus :=.
 func declarations() {
 	var name string = "meter" // full form: var, name, type, value
@@ -128,15 +152,24 @@ func main() {
 		// %.3f prints three decimal places.
 		fmt.Printf("[convert] %.3f km = %.3f miles\n", km, kmToMilesConv(km))
 	}
+	for _, miles := range []float64{1, 5, 42.195} {
+		// %.3f prints three decimal places.
+		fmt.Printf("[convert] %.3f miles = %.3f km\n", miles, MilesToKilometresConv(miles))
+	}
 	for _, c := range []float64{-40, 0, 36.6, 100} {
 		fmt.Printf("[convert] %.1f C = %.1f F\n", c, celsiusToFahrenheit(c))
 	}
 	fmt.Println("== Status enum ==")
-	fmt.Println("[iota]", Pending, Paid, Shipped, "numeric:", int(Shipped))
+	fmt.Println("[iota]", Pending, Paid, Shipped, Refunded, "numeric:", int(Refunded))
 	fmt.Println("== Declarations ==")
 	declarations()
 	fmt.Println("== Zero values ==")
 	zeroValues()
+	fmt.Println("== verify round trip ==")
+	fmt.Println(verifyRoundTrip(1, 1.60934))
+
+	zeroTask()
+
 	fmt.Println("== Pitfalls ==")
 	pitfalls()
 }
