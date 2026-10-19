@@ -31,8 +31,9 @@ EXERCISES:
 package main
 
 import (
-	"fmt"          // printing
-	"strconv"      // number <-> string conversions
+	"fmt"     // printing
+	"strconv" // number <-> string conversions
+	"unicode"
 	"unicode/utf8" // utf8.RuneCountInString etc.
 )
 
@@ -43,6 +44,22 @@ func analyse(label, s string) {
 	// RuneCountInString decodes UTF-8 and counts code points.
 	runes := utf8.RuneCountInString(s)
 	fmt.Printf("[%s] %q bytes=%d runes=%d\n", label, s, bytes, runes)
+}
+
+func reverseRunes(s string) {
+
+}
+
+func countCapLetters(s string) {
+	r := []rune(s)
+	count := 0
+    for _, i := range r {
+		if (unicode.IsUpper(i)){
+			count++
+		}
+	}
+	fmt.Println("Count of capital letters in the string", count)
+
 }
 
 // walk iterates with range to show offsets and code points.
@@ -61,6 +78,7 @@ func main() {
 	hindi := "नमस्ते" // 6 code points, 18 bytes
 	analyse("english", english)
 	analyse("hindi", hindi)
+	analyse("english", "héllo wörld" )
 
 	fmt.Println("== range over Hindi (decodes runes) ==")
 	walk(hindi)
@@ -98,4 +116,7 @@ func main() {
 	bs := []byte("go")
 	bs[0] = 'G'
 	fmt.Println("[immutable] modified copy:", string(bs))
+
+
+	countCapLetters("Go Is Fun In India")
 }
