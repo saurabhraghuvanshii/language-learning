@@ -47,7 +47,10 @@ func analyse(label, s string) {
 }
 
 func reverseRunes(s string) {
-
+    r := []rune(s)
+	for i := len(r) - 1; i >= 0; i--{
+		fmt.Printf("Index: %d, Rune: %c\n", i, r[i])
+	}
 }
 
 func countCapLetters(s string) {
@@ -79,6 +82,7 @@ func main() {
 	analyse("english", english)
 	analyse("hindi", hindi)
 	analyse("english", "héllo wörld" )
+	reverseRunes("नमस्ते")
 
 	fmt.Println("== range over Hindi (decodes runes) ==")
 	walk(hindi)
